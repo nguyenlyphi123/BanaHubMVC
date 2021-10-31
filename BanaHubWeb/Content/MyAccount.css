@@ -1,0 +1,45 @@
+﻿.box {
+    width: 417px;
+}
+
+.box-top {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 3rem 0 1rem 0;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    background: rgb(238,174,202);
+    background: linear-gradient(90deg, rgba(238,174,202,1) 0%, rgba(148,187,233,1) 100%);
+}
+
+    .box-top .img-user img {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+    }
+
+    .box-top .name-user {
+        margin-top: 1rem;
+        font-weight: 600;
+        font-size: 1.5em;
+        color: rgba(252, 252, 252, 1);
+    }
+
+.box-bottom {
+    padding: 1.5rem .5rem .5rem .5rem;
+}
+
+    .box-bottom th {
+        color: rgb(87, 87, 87);
+    }
+
+    .box-bottom .text-right {
+        color: rgb(134, 134, 134);
+        font-weight: 400;
+    }
+
+        .box-bottom .text-right:hover {
+            cursor: pointer;
+        }

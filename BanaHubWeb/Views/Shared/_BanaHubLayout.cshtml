@@ -1,0 +1,48 @@
+﻿@using BanaHubWeb.Models
+
+@{
+    ViewBag.Title = "_BanaHubLayout";
+    Layout = "~/Views/Shared/_BanaHubMainLayout.cshtml";
+}
+
+
+<style>
+    .item-link {
+        color: #202020 !important;
+    }
+
+        .item-link:hover {
+            color: #be9329 !important;
+            text-decoration: none;
+        }
+
+    .list-border {
+        font-size: 13px;
+        color: #9c9c9c;
+        border: none !important;
+        border-right: 1px solid #9c9c9c !important;
+        padding: 0 10px !important;
+    }
+</style>
+
+<!--section-->
+<div class="container-fluid" style="margin-top:3rem">
+    <div class="row">
+        <div class="col-lg-3 d-none d-md-block">
+            @Html.Action("SanPhamLinkPartial", "SanPhamDetail")
+            <div class="list-group" style="margin-top: 2rem;">
+                <h5 class="text-center" style="color: #be9329; font-weight: 500;">SẢN PHẨM LIÊN QUAN</h5>
+                <div class="list-item">
+                        @Html.Action("DeXuat", "BanaHub", new { id = ViewBag.MaLoai})
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-12 col-lg-9">
+            @RenderBody()
+        </div>
+    </div>
+</div>
+
+
+

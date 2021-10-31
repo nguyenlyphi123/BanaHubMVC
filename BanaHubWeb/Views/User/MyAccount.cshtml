@@ -1,0 +1,74 @@
+﻿@model IEnumerable<BanaHubWeb.Models.MyAccount>
+@using BanaHubWeb.Models;
+
+@{
+    ViewBag.Title = "MyAccount";
+    Layout = "~/Views/Shared/_BanaHubMainLayout.cshtml";
+}
+
+@{ 
+    KHACHHANG kh = (KHACHHANG)Session["TaiKhoan"];
+}
+
+<div class="container-fluid" style="margin-top:3rem">
+    <div class="row">
+        <div class="col-4">
+            <div class="d-flex justify-content-center align-items-center" style="height:600px">
+                <div class="box shadow mb-5 bg-white rounded">
+                    @foreach (var item in Model)
+                    {
+                        <div class="box-top">
+                            <div class="img-user">
+                                <img src="~/Images/@item.Images" alt="">
+                            </div>
+
+                            <div class="name-user">
+                                <p>@item.Name</p>
+                            </div>
+                        </div>
+
+                        <div class="box-bottom">
+                            <table class="table table-borderless">
+                                <thead>
+                                    <tr>
+                                        <th>Email</th>
+                                        <th class="text-right">
+                                            @item.Email
+                                        </th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Địa chỉ</th>
+                                        <th class="text-right">@item.City</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Số điện thoại</th>
+                                        <th class="text-right">@item.PhoneNumber</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Đơn hàng đã mua</th>
+                                        <th class="text-right">@item.TotalOrder</th>
+                                    </tr>
+
+                                    <tr>
+                                        <th>Tổng giá trị</th>
+                                        <th class="text-right">@String.Format("{0:##,##0,0}", @item.TotalValue) VNĐ</th>
+                                    </tr>
+                                </thead>
+                            </table>
+                        </div>
+                    }
+
+                </div>
+            </div>
+        </div>
+
+        <div class="col-8">
+            @Html.Action("UserOrder")
+        </div>
+
+    </div>
+</div>
+    <link href="~/Content/MyAccount.css" rel="stylesheet" />

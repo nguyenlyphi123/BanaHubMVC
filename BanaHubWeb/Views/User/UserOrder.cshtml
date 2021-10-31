@@ -1,0 +1,114 @@
+﻿@model PagedList.PagedList<BanaHubWeb.Models.Order>
+@using PagedList.Mvc;
+
+<div id="layoutSidenav_content">
+    <div class="container-fluid container-center">
+        <div class="row">
+            <div class="col-md-12 col-lg-12">
+                <div class="sub-container">
+                    <h2 class="text-center">ĐƠN HÀNG CỦA TÔI</h2>
+                    <table class="table">
+                        <tr>
+                            <th>
+                                Mã đơn hàng
+                            </th>
+                            <th>
+                                Ngày đặt hàng
+                            </th>
+                            <th>
+                                Tổng số lượng
+                            </th>
+                            <th>
+                                Tổng đơn giá
+                            </th>
+                            <th>
+                                Tình trạng
+                            </th>
+                            <th></th>
+                        </tr>
+
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ID)
+                                </td>
+                                <td>
+                                    @Html.FormatValue(item.DayOrder, "{0:dd/MM/yyy}")
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Sum)
+                                </td>
+                                <td style="color:#be9329">
+                                    @Html.FormatValue(item.Price, "{0:##,##0}") đ
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Status)
+                                </td>
+                                <td style="width:150px;">
+                                    @if (item.Status == "Đang xử lý")
+                                    {
+                                        @*<a href="" class="btn btn-dark" role="button">Hủy đơn</a>*@
+                                        @*<button type="submit" class="btn btn-dark">Hủy đơn</button>*@
+
+                                        using (Html.BeginForm("CancelOrder", "User", new { id = item.ID }))
+                                        {
+                                            <button type="button" class="btn btn-sm btn-dark" data-toggle="modal" data-target="#exampleModal">
+                                                Hủy đơn
+                                            </button>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="exampleModalLabel">Xác nhận hủy đơn hàng</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc muốn hủy đơn hàng
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Hủy</button>
+                                                            <button type="submit" class="btn btn-warning">Đồng ý</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        }
+
+
+                                    }
+                                    else if ((item.Status == "Đang giao"))
+                                    {
+                                        using (Html.BeginForm("Received", "User", new { id = item.ID}))
+                                        {
+                                            <button type="submit" class="btn btn-sm btn-dark">Đã nhận hàng</button>
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        @*<a href="" class="btn btn-dark" role="button">Hủy đơn à</a>*@
+                                        <button type="submit" class="btn btn-sm btn-dark" disabled>Hủy đơn</button>
+                                    }
+
+                                </td>
+                            </tr>
+                        }
+
+                    </table>
+                    <div class="menuTrang">
+                        @Html.PagedListPager(Model, page => Url.Action("UserOrder", new { page = page }))
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
